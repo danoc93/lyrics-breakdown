@@ -6,7 +6,9 @@ Interface to request game data from the backend.
 const request = require('request');
 
 /* API communication essentials.*/
-const API_ROOT = 'http://localhost:5000';
+//const API_ROOT = 'http://localhost:5000';
+const API_ROOT = 'https://lyrics-breakdown-server.herokuapp.com';
+
 const RESOURCE = 'game';
 
 class MusicService{
