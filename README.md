@@ -63,11 +63,11 @@ npm install --prefix server
 npm start --prefix server
 ```
 
-** Note: npm install only needs to be executed once. **
+###### Note: npm install only needs to be executed once.
 
 Last step:
 
 Locally, you don't have 2 contexts so everything has to be dealt in terms of local host. 
 In order for the front end to talk to the back end, simply change the URL end point on your local machine (client/controllers/Environment.js). The local URL is commented there by default.
 
-
+###### DO NOT COMMIT YOUR LOCAL Environment.js FILE.
