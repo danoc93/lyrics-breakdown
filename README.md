@@ -33,7 +33,7 @@ From the parent folder, whenever you wanna deploy your changes to either front e
 
 ```
 git subtree push --prefix client heroku-front master
-git subtree push --prefix client heroku-server master
+git subtree push --prefix server heroku-server master
 ```
 
 Don't forget to also keep the origin updated.
