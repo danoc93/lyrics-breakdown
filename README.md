@@ -4,7 +4,10 @@ Deployment
 
 1. We have 2 Heroku servers due to the service only allowing one context per application (unless we pay).
 
+Front-end of the application:
 https://lyrics-breakdown-front.herokuapp.com/
+
+Back-end API access point.
 https://lyrics-breakdown-server.herokuapp.com/
 
 2. The first one is hooked to the "client" folder in this repo, the second one is hooked to the "server" folder.
