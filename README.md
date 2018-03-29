@@ -1,6 +1,7 @@
 # lyrics-breakdown
 
-Deployment
+
+## Deployment
 
 1. We have 2 Heroku servers due to the service only allowing one context per application (unless we pay).
 
@@ -41,3 +42,24 @@ Don't forget to also keep the origin updated.
 ```
 git push origin master
 ```
+
+## Local Setup
+
+To start the front-end:
+
+```
+cd lyrics-breakdown
+npm start --prefix client
+```
+
+To start the back-end:
+
+```
+cd lyrics-breakdown
+npm start --prefix server
+```
+
+
+Locally, you don't have 2 contexts so everything has to be dealt in terms of local host. 
+In order to connect front and back ends, simply change the URL end point on your local machine to use the local one.
+Currently hardcoded in MusicService.js, but it will be moved to a configuration file.
