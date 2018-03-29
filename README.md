@@ -63,5 +63,6 @@ npm start --prefix server
 
 
 Locally, you don't have 2 contexts so everything has to be dealt in terms of local host. 
-In order to connect front and back ends, simply change the URL end point on your local machine to use the local one.
-Currently hardcoded in MusicService.js, but it will be moved to a configuration file.
+In order to connect front and back ends, simply change the URL end point on your local machine (client/controllers/Environment.js). The local URL is commented there by default.
+
+
