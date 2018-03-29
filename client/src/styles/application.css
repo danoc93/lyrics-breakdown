@@ -1,0 +1,64 @@
+.topElement
+{
+  margin-top: 2em;
+}
+
+.footerText
+{
+  padding-top: 1em;
+  text-align: center;
+  color: #FFF;
+}
+
+.lyricsText
+{
+  color: #FFF;
+  text-align: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand>img {
+  padding-top: 2px;
+  padding-right: 5px;
+  padding-bottom: 2px;
+}
+
+.jumbotron {
+  padding-bottom: 1em;
+  padding-top: 4em;
+}
+
+.gameSelectionPanel {
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-right: 1em;
+  background-color: #323232;
+}
+
+.gameOptionsContainer {
+  width: 100%;
+  text-align: center;
+}
+
+.optionsBlock {
+  width: 300px;
+  display: inline-block;
+}
+
+.tokensContainer{
+  margin-bottom: 1em;
+  text-align: right;
+}
+
+.centerText {
+  text-align: center;
+  color: #FFF;
+}
+
+.hidden {
+  display:none;
+ }

@@ -1,0 +1,14 @@
+{
+  "name": "lyrics-breakdown-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "request": "^2.85.0"
+  }
+}
