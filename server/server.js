@@ -8,6 +8,7 @@ const port = process.env.PORT || 5000;
 
 // CORS support.
 var cors = require('cors');
+
 app.use(cors({origin: '*'}));
 
 /** SUPPORTED ROUTES **/
@@ -17,5 +18,4 @@ app.use('/game', require('./routes/GameRouter'));
 
 
 /** LISTEN **/
-
 app.listen(port, () => console.log(`Listening on port ${port}`));
