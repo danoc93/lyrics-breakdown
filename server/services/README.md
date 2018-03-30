@@ -1,5 +1,5 @@
 # MongoDB
-Service to query and perform operations on the database - DatabaseService.js
+Service to query and perform operations on the database - DatabaseService.js  
 Added Environment.js in server/services containing the database URI - must change accordingly to the corresponding database running on localhost.
 ### MongoDB set up
 1. Install https://docs.mongodb.com/manual/administration/install-community/
