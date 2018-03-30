@@ -145,11 +145,11 @@ class DatabaseService {
     }
 
     // Scores queries
-    getScores() {
+    getScores(num_high_scores) {
         if (this.isConnectedToDatabase()) {
             try {
-                let lim = 10;
-                return scoresCollection.find({}).limit(lim).toArray();
+                return (num_high_scores > 0 ? scoresCollection.find({}).limit(num_high_scores).toArray()
+                    : scoresCollection.find({}).toArray());
             } catch (err) {
                 console.log(err.stack);
             }
@@ -162,7 +162,8 @@ class DatabaseService {
             try {
                 // sort in descending order
                 let sort = {score: -1};
-                return scoresCollection.find({}).sort(sort).limit(num_high_scores).toArray();
+                return num_high_scores > 0 ? scoresCollection.find({}).sort(sort).limit(num_high_scores).toArray()
+                    : scoresCollection.find({}).sort(sort).toArray();
             }
             catch (err) {
                 console.log(err.stack);
@@ -171,11 +172,12 @@ class DatabaseService {
         return null;
     }
 
-    getScoresByCountry(country_id) {
+    getScoresByCountry(country_id, num_high_scores) {
         if (this.isConnectedToDatabase()) {
             try {
                 let query = {country_id: country_id};
-                return scoresCollection.find(query).toArray();
+                return num_high_scores > 0 ? scoresCollection.find(query).limit(num_high_scores).toArray()
+                    : scoresCollection.find(query).toArray();
             } catch (err) {
                 console.log(err.stack);
             }
@@ -188,7 +190,8 @@ class DatabaseService {
             try {
                 let query = {country_id: country_id};
                 let sort = {score: -1};
-                return scoresCollection.find(query).sort(sort).limit(num_high_scores).toArray();
+                return num_high_scores > 0 ? scoresCollection.find(query).sort(sort).limit(num_high_scores).toArray()
+                    : scoresCollection.find(query).sort(sort).toArray();
             }
             catch (err) {
                 console.log(err.stack);
@@ -197,11 +200,12 @@ class DatabaseService {
         return null;
     }
 
-    getScoresByUser(username) {
+    getScoresByUser(username, num_high_scores) {
         if (this.isConnectedToDatabase()) {
             try {
                 let query = {username: username};
-                return scoresCollection.find(query).toArray();
+                return num_high_scores > 0 ? scoresCollection.find(query).limit(num_high_scores).toArray()
+                    : scoresCollection.find(query).toArray();
             } catch (err) {
                 console.log(err.stack);
             }
@@ -214,7 +218,8 @@ class DatabaseService {
             try {
                 let query = {username: username};
                 let sort = {score: -1};
-                return scoresCollection.find(query).sort(sort).limit(num_high_scores).toArray();
+                return num_high_scores > 0 ? scoresCollection.find(query).sort(sort).limit(num_high_scores).toArray()
+                    : scoresCollection.find(query).sort(sort).toArray();
             }
             catch (err) {
                 console.log(err.stack);
