@@ -44,12 +44,16 @@ const Header = () => (
           <NavDropdown eventKey={3}
           title="👤 My Profile"
           id="basic-nav-dropdown">
+            <LinkContainer to="/login">      
             <MenuItem eventKey={3.1}>Sign In</MenuItem>
+            </LinkContainer>            
             <MenuItem divider />
+            <LinkContainer to="/register">            
             <MenuItem eventKey={3.2}>
               <span role="img" aria-label="pen">✏️</span>
               Register
             </MenuItem>
+            </LinkContainer>            
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
