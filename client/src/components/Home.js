@@ -21,7 +21,7 @@ const Home = () => (
           &nbsp;Play the game now!
         </h1>
         <p>
-          <a href="">Sign up</a> to compete with your friends.
+          <a href="/register">Sign up</a> to compete with your friends.
         </p>
       </Grid>
     </Jumbotron>

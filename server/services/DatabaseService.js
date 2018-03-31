@@ -46,16 +46,17 @@ class DatabaseService {
     }
 
     // User queries
-    doesUsernameExist(username) {
+    doesUsernameExist(username, successCallback, errorCallback) {
         if (this.isConnectedToDatabase()) {
             try {
                 let query = {username: username};
-                return userCollection.find(query).limit(1).toArray().length > 0;
+                let req = userCollection.find(query).limit(1).toArray();
+                return req.then(successCallback).catch(errorCallback);
             } catch (err) {
                 console.log(err.stack);
             }
         }
-        return false;
+        return null;
     }
 
     doesEmailExist(email_address) {
@@ -70,8 +71,9 @@ class DatabaseService {
         return false;
     }
 
-    createUser(country_id, email_address, username, password) {
-        if (this.isConnectedToDatabase() && !this.doesUsernameExist(username) && !this.doesEmailExist(email_address)) {
+    createUser(country_id, email_address, username, password,
+      createdCallBack, errorCallback) {
+        if (this.isConnectedToDatabase()) {
             try {
                 let ins = {
                     country_id: country_id,
@@ -79,17 +81,16 @@ class DatabaseService {
                     username: username,
                     password: password
                 };
-                let response = userCollection.insertOne(ins);
-                return response.insertedCount === 1;
+                return userCollection.insertOne(ins).then(createdCallBack).catch(errorCallback);
             } catch (err) {
                 console.log(err.stack);
             }
         }
-        return false;
+        return null;
     }
 
     deleteUserByEmailAddr(email_address) {
-        if (this.isConnectedToDatabase() && this.doesUsernameExist(email_address)) {
+        if (this.isConnectedToDatabase()) {
             try {
                 let del = {email_address: email_address};
                 let response = userCollection.deleteOne(del);
@@ -102,7 +103,7 @@ class DatabaseService {
     }
 
     deleteUserByUsername(username) {
-        if (this.isConnectedToDatabase() && this.doesUsernameExist(username)) {
+        if (this.isConnectedToDatabase()) {
             try {
                 let del = {username: username};
                 let response = userCollection.deleteOne(del);
@@ -114,22 +115,13 @@ class DatabaseService {
         return false;
     }
 
-    checkCredentialsEmailAddress(email_address, password) {
-        if (this.isConnectedToDatabase())
-            try {
-                let query = {email_address: email_address, password: password};
-                return 1 === userCollection.find(query).toArray();
-            } catch (err) {
-                console.log(err.stack);
-            }
-        return false;
-    }
 
-    checkCredentialsUsername(username, password) {
+    checkCredentialsUsername(username, password,
+      successCallback, errorCallback) {
         if (this.isConnectedToDatabase())
             try {
                 let query = {username: username, password: password};
-                return 1 === userCollection.find(query).toArray();
+                return userCollection.find(query).toArray().then(successCallback).catch(errorCallback);
             } catch (err) {
                 console.log(err.stack);
             }

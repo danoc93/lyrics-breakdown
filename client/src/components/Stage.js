@@ -358,7 +358,7 @@ class Stage extends React.Component {
 
         </Grid>
       </div>
-    )
+    );
   }
 
 }

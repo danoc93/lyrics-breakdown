@@ -1,52 +1,186 @@
 import React from 'react';
-import {Jumbotron, Grid, Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, Button, PageHeader} from 'react-bootstrap';
+import {Jumbotron, Grid, Row, Col, FormGroup,
+	ControlLabel, FormControl, HelpBlock, Button, Alert} from 'react-bootstrap';
+
+import UserService from '../controllers/UserService.js';
 
 /**
 Component: UserRegister
 This is the view shown to the user for creating an account.
 */
 
-const UserRegister = () => (
-	<div>
-        <Jumbotron>
-        	<Grid>
-        	<Row className = "show-grid">
-        		<Col>
-					<PageHeader>
-					  <small>Create your personal account!</small>
-					</PageHeader>
-				</Col>
-			</Row>
-        	<br/>
-        		<Row className = "show-grid">
-        			<Col xs={12} md={8}>
-				      <form>
-				        <FormGroup>
-				          <ControlLabel>Username</ControlLabel>
-				          <FormControl
-				            type="text"
-				            id="username"/>
-				            <br/>
-				          <ControlLabel>Email address</ControlLabel>
-				          <FormControl
-				            type="text"
-				            id="email"/>
-				            <HelpBlock>We will occasionally send updates about your account to this inbox. We will never share your email address with anyone.</HelpBlock>
-				            <br/>
-				          <ControlLabel>Password</ControlLabel>
-				          <FormControl
-				            type="password"
-				            id="password"/>
-				            <HelpBlock>Use at least one upper case, one lower case and one numeric character.</HelpBlock>
-				        </FormGroup>
-				        <Button className="btn btn-success" type="submit">Create an account</Button>
-				      </form>
-				    </Col>
-			    </Row> 
-		    </Grid>
-        </Jumbotron>
-	</div>
+let objUtils = require('../utils/ObjectUtils.js');
 
-);
+class UserRegister extends React.Component {
 
-export default UserRegister; 
+	constructor(props){
+    super(props);
+		this.prepareBindings();
+		this.state =
+		{
+			inError : false,
+			errorContents : '',
+			usernameText : '',
+			passwordText: '',
+			countryIdentifier: '0',
+			confirmPasswordText: '',
+			emailText: 'dummy@dummy.com',
+			minPassSize: 6
+		};
+
+		this.userService = new UserService();
+		this.prepareBindings();
+
+	}
+
+	prepareBindings(){
+		this.passwordChanged = this.passwordChanged.bind(this);
+		this.usernameChanged = this.usernameChanged.bind(this);
+		this.confirmPasswordChanged = this.confirmPasswordChanged.bind(this);
+		this.emailChanged = this.emailChanged.bind(this);
+		this.registerButtonClicked = this.registerButtonClicked.bind(this);
+		this.setError = this.setError.bind(this);
+		this.hideErrors = this.hideErrors.bind(this);
+		this.errorFound = this.errorFound.bind(this);
+		this.registerSuccess = this.registerSuccess.bind(this);
+	}
+
+	setError(text){
+		this.setState({inError: true, errorContents : text});
+	}
+
+	hideErrors(){
+		this.setState({inError : false});
+	}
+
+	passwordChanged(e){
+		this.setState({passwordText : e.target.value});
+	}
+
+	usernameChanged(e){
+		this.setState({usernameText : e.target.value});
+	}
+
+	confirmPasswordChanged(e){
+		this.setState({confirmPasswordText : e.target.value});
+	}
+
+	emailChanged(e){
+		this.setState({emailText : e.target.value});
+	}
+
+	registerButtonClicked(){
+
+		// VALIDATION.
+
+		if(objUtils.isEmpty(this.state.usernameText)
+		|| objUtils.isEmpty(this.state.passwordText)
+		|| objUtils.isEmpty(this.state.confirmPasswordText)
+		|| objUtils.isEmpty(this.state.countryIdentifier)
+		|| objUtils.isEmpty(this.state.emailText)){
+				this.setError('Fields cannot be empty!');
+				return;
+		}
+
+		if(this.state.confirmPasswordText !== this.state.passwordText){
+			this.setError('Passwords must match.');
+			return;
+		}
+
+		if(!objUtils.isValidEmail(this.state.emailText)){
+			this.setError('Invalid e-mail address.');
+			return;
+		}
+
+		// TODO: Improve this password policy.
+		if(this.state.passwordText.length < this.state.minPassSize){
+			this.setError('Password is too short!');
+			return;
+		}
+
+		this.hideErrors();
+
+		this.userService.tryCreate(
+			this.state.usernameText,
+			this.state.passwordText,
+			this.state.emailText,
+			this.state.countryIdentifier,
+			this.registerSuccess, this.errorFound);
+
+	}
+
+	registerSuccess(data){
+		this.props.history.push('/');
+	}
+
+	errorFound(e){
+		console.log(e);
+		let errorMessage = e.error;
+		if (errorMessage === undefined) {
+			errorMessage = 'Something happened. Undefined Error.';
+		}
+		this.setError(errorMessage);
+	}
+
+	render(){
+		return (
+			<div>
+	        <Jumbotron className="spacerBottom">
+	        <Grid>
+	        	<Row className = "show-grid">
+	        		<Col>
+								<h2><small> Create your personal account! </small></h2>
+							</Col>
+						</Row>
+	        	<br/>
+	        	<Row className = "show-grid">
+	        			<Col xs={12} md={8}>
+					      <form>
+					        <FormGroup>
+					          <ControlLabel>
+										<span role="img" aria-label="player">🎮</span>
+										Username
+										</ControlLabel>
+					          <FormControl
+											onChange={this.usernameChanged}
+					            type="text"
+					            id="username"/>
+					            <br/>
+					      
+					          <ControlLabel>Password</ControlLabel>
+					          <FormControl
+											onChange={this.passwordChanged}
+					            type="password"
+					            id="password"/>
+										<ControlLabel>Confirm Password</ControlLabel>
+						        <FormControl
+										 	onChange={this.confirmPasswordChanged}
+						          type="password"
+						          id="confirmPassword"/>
+										<HelpBlock>
+										<small>
+											Your password must have at least ({this.state.minPassSize}
+										 ) characters.
+										</small>
+										</HelpBlock>
+					        </FormGroup>
+									<Alert bsStyle="danger"
+									className={this.state.inError ? '' : 'hidden'}>
+										Error: {this.state.errorContents}
+									</Alert>
+					        <Button className="btn btn-success"
+										onClick={this.registerButtonClicked}>
+									Create an account
+									</Button>
+					      </form>
+					    </Col>
+				    </Row>
+			    </Grid>
+	        </Jumbotron>
+				</div>
+		);
+	}
+
+}
+
+export default UserRegister;

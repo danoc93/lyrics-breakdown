@@ -3,6 +3,11 @@
   margin-top: 2em;
 }
 
+.spacerBottom
+{
+  padding-bottom: 3em !important;
+}
+
 .footerText
 {
   padding-top: 1em;
