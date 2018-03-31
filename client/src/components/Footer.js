@@ -10,7 +10,7 @@ const Footer = () => (
 
   <Navbar inverse fixedBottom>
     <div className="footerText">
-      2018, Lyrics Trivia - Toronto, ON, Canada
+      2018, Lyrics Breakdown - Toronto, ON, Canada
     </div>
   </Navbar>
 );
