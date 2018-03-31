@@ -1,5 +1,8 @@
 # lyrics-breakdown
 
+## Track tickets
+https://github.com/csc309-18s/assignment-3-team-one-1/projects/1
+
 This repo had to be created because Heroku couln't operate on the other one due to permissions.
 We will migrate this one once the application is complete.
 
