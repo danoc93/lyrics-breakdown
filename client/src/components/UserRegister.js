@@ -3,6 +3,7 @@ import {Jumbotron, Grid, Row, Col, FormGroup,
 	ControlLabel, FormControl, HelpBlock, Button, Alert} from 'react-bootstrap';
 
 import UserService from '../controllers/UserService.js';
+import {Constants} from '../utils/Constants.js';
 
 /**
 Component: UserRegister
@@ -22,7 +23,7 @@ class UserRegister extends React.Component {
 			errorContents : '',
 			usernameText : '',
 			passwordText: '',
-			countryIdentifier: '0',
+			countryIdentifier: '',
 			confirmPasswordText: '',
 			emailText: 'dummy@dummy.com',
 			minPassSize: 6
@@ -38,6 +39,7 @@ class UserRegister extends React.Component {
 		this.usernameChanged = this.usernameChanged.bind(this);
 		this.confirmPasswordChanged = this.confirmPasswordChanged.bind(this);
 		this.emailChanged = this.emailChanged.bind(this);
+		this.countryChanged = this.countryChanged.bind(this);
 		this.registerButtonClicked = this.registerButtonClicked.bind(this);
 		this.setError = this.setError.bind(this);
 		this.hideErrors = this.hideErrors.bind(this);
@@ -67,6 +69,10 @@ class UserRegister extends React.Component {
 
 	emailChanged(e){
 		this.setState({emailText : e.target.value});
+	}
+
+	countryChanged(e){
+		this.setState({countryIdentifier : e.target.value});
 	}
 
 	registerButtonClicked(){
@@ -122,6 +128,20 @@ class UserRegister extends React.Component {
 		this.setError(errorMessage);
 	}
 
+	createSelectItems() {
+     let items = [ <option key="select" value="">
+		 		Select a country ... </option> ];
+				
+     for (let i = 0; i < Constants.countries.length; i++) {
+			    let country = Constants.countries[i];
+          items.push(
+						<option key={country.name} value={country.id}>
+						{country.flag + ' ' + country.name}
+						</option>);
+     }
+     return items;
+ 	}
+
 	render(){
 		return (
 			<div>
@@ -146,7 +166,17 @@ class UserRegister extends React.Component {
 					            type="text"
 					            id="username"/>
 					            <br/>
-					      
+										<ControlLabel>
+										<span role="img" aria-label="map">🗺️</span>
+										Country
+										</ControlLabel>
+							      <FormControl
+										onChange={this.countryChanged}
+										componentClass="select"
+										placeholder="select">
+							        {this.createSelectItems()}
+							      </FormControl>
+										<br/>
 					          <ControlLabel>Password</ControlLabel>
 					          <FormControl
 											onChange={this.passwordChanged}

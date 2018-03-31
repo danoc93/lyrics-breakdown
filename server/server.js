@@ -17,6 +17,11 @@ global.APP = {};
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Session trackers.
+var jwt = require('jsonwebtoken');
+var environment = require('./services/Environment.js');
+app.set('sessionSecret', config.secret);
+
 // CORS support.
 var cors = require('cors');
 app.use(cors({origin: '*'}));

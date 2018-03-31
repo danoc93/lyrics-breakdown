@@ -91,6 +91,8 @@ typings/
 #Folders
 etc
 controllers/Environment.js
+services/Environment.js
 src/controllers/Environment.js
+src/services/Environment.js
 
 # End of https://www.gitignore.io/api/node,macos
