@@ -30,6 +30,7 @@ app.use(cors({origin: '*'}));
 global.APP.dbService = new DatabaseService();
 global.APP.dbService.connectToDatabase();
 
+
 /** SUPPORTED ROUTES **/
 
 // Acceptable routes.
