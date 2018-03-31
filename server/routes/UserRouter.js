@@ -76,7 +76,7 @@ router.post('/create', function(req, res, next) {
       (response) => {
 
         if (response.length > 0){
-          res.status(403).send('User already registered.');
+          res.status(403).send('Username not available!');
           return;
         }
 
@@ -100,7 +100,7 @@ router.post('/create', function(req, res, next) {
         }
 
         // Change this to return a session token to the front end!
-        res.send('User created: '+username);
+        res.send('User created: '+requestData.username);
 
       },
 
