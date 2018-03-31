@@ -93,27 +93,15 @@ router.post('/create', function(req, res, next) {
               res.send('User created succesfully!');
             else
               res.status(500).send('Could not create user.');
-          },
-
-          (error) => {
-            console.log(error);
-            res.status(500).send('Could not access database.');
           }
 
         );
 
-        if(result === null){
-          res.status(500).send('Unknown error with database.');
-          return;
+        if(result == null){
+          res.status(500).send('Could not access database.');
         }
 
-      },
-
-    // Failure.
-    (error) => {
-      console.log(error);
-      res.status(500).send('Could not access database.');
-    }
+      }
 
   );
 
