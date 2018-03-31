@@ -63,6 +63,17 @@ npm install --prefix server
 npm start --prefix server
 ```
 
+To start the server with the local database, ensure you have mongodb installed (use brew install mongodb on MAC).
+Also ensure server/controllers/Environment.js has the right URI.
+```
+brew install mongodb
+mkdir /SOME/PATH/lt-dt
+sudo mongod --dbpath /Users/daniel/Repos/databases/lt-db
+cd server
+npm install
+npm run
+```
+
 ###### Note: npm install only needs to be executed once.
 
 Last step:
