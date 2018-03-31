@@ -94,7 +94,7 @@ router.post('/create', function(req, res, next) {
           reqUtils.genericDatabaseErrorHandler
         );
 
-        if(result == null){
+        if(result === null){
           res.status(500).send('Unknown error with database.');
           return;
         }

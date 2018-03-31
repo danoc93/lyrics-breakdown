@@ -1,7 +1,7 @@
 var objUtils = require('../utils/ObjectUtils.js');
 
 function genericDatabaseCallback(response){
-  res.send('Success!');
+  response.send('Success!');
 }
 
 function genericDatabaseErrorHandler(error){
