@@ -20,8 +20,9 @@ app.use(bodyParser.json());
 // Session trackers.
 var jwt = require('jsonwebtoken');
 var environment = require('./services/Environment.js');
-app.set('sessionSecret', environment.secret);
+global.APP.sessionSecret = environment.SESSION_SECRET;
 
+console.log
 // CORS support.
 var cors = require('cors');
 app.use(cors({origin: '*'}));

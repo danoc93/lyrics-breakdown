@@ -6,6 +6,7 @@ import Information from './Information';
 import Leaderboards from './Leaderboards';
 import Stage from './Stage';
 import Login from './Login';
+import Logout from './Logout';
 import UserRegister from './UserRegister';
 
 /**
@@ -23,7 +24,8 @@ const MainRouter = () => (
       <Route exact path='/leaderboards' component={Leaderboards}/>
       <Route path='/game/:gameId/:gameTitle' component={Stage}/>
       <Route path='/login' component={Login}/>
-      <Route path='/register' component={UserRegister}/>      
+      <Route path='/logout' component={Logout}/>
+      <Route path='/register' component={UserRegister}/>
     </Switch>
   </main>
 
