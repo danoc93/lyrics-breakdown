@@ -31,7 +31,10 @@ router.post('/login', function(req, res, next) {
         res.status(401).send('Invalid login credentials.');
     },
 
-    reqUtils.genericDatabaseErrorHandler
+    (error) => {
+      console.log(error);
+      res.status(500).send('Could not access database.');
+    }
 
   );
 
@@ -91,7 +94,12 @@ router.post('/create', function(req, res, next) {
             else
               res.status(500).send('Could not create user.');
           },
-          reqUtils.genericDatabaseErrorHandler
+
+          (error) => {
+            console.log(error);
+            res.status(500).send('Could not access database.');
+          }
+
         );
 
         if(result == null){
@@ -99,13 +107,15 @@ router.post('/create', function(req, res, next) {
           return;
         }
 
-        // Change this to return a session token to the front end!
-        res.send('User created: '+requestData.username);
-
       },
 
     // Failure.
-    reqUtils.genericDatabaseErrorHandler);
+    (error) => {
+      console.log(error);
+      res.status(500).send('Could not access database.');
+    }
+
+  );
 
 });
 
