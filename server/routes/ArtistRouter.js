@@ -2,6 +2,14 @@ var express = require('express');
 var router = express.Router();
 var objUtils = require('../utils/ObjectUtils.js');
 
+/******
+
+  Custom API Routes
+  The following functions offer an augmented API to operate
+  on custom Artists and Songs added by users of the application.
+
+  ******/
+
 router.get('/:creator_id', function(req, res, next) {
   var creator_id = req.params.creator_id;
 

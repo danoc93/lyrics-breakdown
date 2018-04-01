@@ -2,8 +2,8 @@ import {Environment} from './Environment.js';
 import decode from 'jwt-decode';
 
 /**
-Controller: MusicService
-Interface to request game data from the backend.
+Controller: UserService
+Interface to request user data from the backend.
 */
 
 const crypto = require("crypto-js");

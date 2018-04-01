@@ -38,6 +38,8 @@ app.use('/user', require('./routes/UserRouter'));
 app.use('/game', require('./routes/GameRouter'));
 app.use('/leaderboards', require('./routes/LeaderboardsRouter'));
 app.use('/score', require('./routes/ScoreRouter'));
+
+/* Augmented API. */
 app.use('/artist', require('./routes/ArtistRouter'));
 
 // Unavailable route.
