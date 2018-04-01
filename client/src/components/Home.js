@@ -69,14 +69,14 @@ class Home extends React.Component {
 
                 <MiniGameDescriptor
                   image={canada}
-                  title={'Canadian Charts'}
-                  description={'Guess lyrics from the trendiest songs in Canada!'}
+                  title={'Canadian Hits'}
+                  description={'Trendy lyrics from all over Canada!'}
                   gameId={0}/>
 
                 <MiniGameDescriptor
                   image={t100}
-                  title={'Top Charts'}
-                  description={'Guess songs from the current top songs around the world.'}
+                  title={'Top 100 Charts'}
+                  description={'The current top songs from around the world.'}
                   gameId={1}/>
 
                 <MiniGameDescriptor
