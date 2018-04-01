@@ -1,6 +1,8 @@
 import React from 'react';
 import {Jumbotron, Grid} from 'react-bootstrap';
 
+import {Constants} from '../utils/Constants.js';
+
 /**
 Component: Information
 Used for displaying general game information and some credits.
@@ -31,9 +33,10 @@ const Information = () => (
 
             <h3><span role="img" aria-label="score">🎮</span> Scoring rules</h3>
             <p className="informationBlock">
-                You start a regular game with XX lives. Each failure makes you lose one and
-                each successful guess grants you XX points. For each game, a player has
-                XX lyric tokens, and XX sound tokens.
+                You start a regular game with <b>{Constants.numInitialLives}</b> lives. Each failure makes you lose one and
+                each successful guess grants you <b>{Constants.pointsPerSuccess}</b> points. For each game, a player has
+                a total of <b>{Constants.maxTokensMore}</b> lyric tokens, <b>{Constants.maxTokens5050}</b> 50/50 tokens,
+                and <b>{Constants.maxTokensShowTitle}</b> show title tokens.
                 Your final score is included in your historical total, which is used by
                 our system to rank you with respect to the other players.
 

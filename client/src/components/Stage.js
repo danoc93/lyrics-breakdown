@@ -18,10 +18,9 @@ import {Constants} from '../utils/Constants.js';
  game is displayed to the user.
 
  In case of errors, it will show the relevant information as well.
-
- Pending:
- -Interface with back-end to transmit scores and store them in the database.
  */
+
+let objUtils = require('../utils/ObjectUtils.js');
 
 class Stage extends React.Component {
 
@@ -38,14 +37,16 @@ class Stage extends React.Component {
 
       maxTokensMore: Constants.maxTokensMore,
       maxTokensPlay: Constants.maxTokensPlay,
+      maxTokens5050: Constants.maxTokens5050,
+      maxTokensShowTitle: Constants.maxTokensShowTitle,
       pointsPerSuccess: Constants.pointsPerSuccess,
 
       currentScore: 0,
       currentLives: Constants.numInitialLives,
       currTokensMore: Constants.maxTokensMore,
       currTokensPlay: Constants.maxTokensPlay,
-      curr5050Available: true,
-      showTrackNameAvailable: true,
+      curr5050Available: Constants.maxTokens5050,
+      showTrackNameAvailable: Constants.maxTokensShowTitle,
 
       gameReady: false,
       gameData: [],
@@ -209,7 +210,7 @@ class Stage extends React.Component {
     if (!this.state.curr5050Available) return;
 
     let style = this.state.optStyle;
-    let currValue = this.state.currTokensMore;
+    let currValue = this.state.curr5050Available;
     if (currValue === 0) return;
 
     let correctIndex = this.state.correctIndex;
@@ -229,15 +230,17 @@ class Stage extends React.Component {
     style[wrongIndex1] = Constants.colFail;
     style[wrongIndex2] = Constants.colFail;
 
-    this.setState({curr5050Available: false, optStyle: style});
+    this.setState({curr5050Available: currValue - 1, optStyle: style});
   }
 
   showSongTitleClicked() {
-    if (!this.state.showTrackNameAvailable) return;
+
+    let currValue = this.state.showTrackNameAvailable;
+    if (currValue === 0) return;
 
     this.setState(
       {
-        showTrackNameAvailable: false,
+        showTrackNameAvailable: currValue - 1,
         trackNameVisible: true
       }
     )
@@ -336,20 +339,21 @@ class Stage extends React.Component {
                       Show More ({this.state.currTokensMore})
                     </Button>
                     <Button bsStyle="info"
+                            className = {objUtils.hideIf(true)}
                             onClick={this.playSnippetClicked}
                             disabled={this.state.currTokensPlay === 0}>
                       <span role="img" aria-label="play">🔉</span>
                       Play Snippet ({this.state.currTokensPlay})
                     </Button>
-                    <Button bsStyle="primary"
+                    <Button bsStyle="info"
                             onClick={this.on5050Clicked}
                             disabled={!this.state.curr5050Available}>
-                      50/50
+                      50/50 ({this.state.curr5050Available})
                     </Button>
-                    <Button bsStyle="primary"
+                    <Button bsStyle="danger"
                             onClick={this.showSongTitleClicked}
                             disabled={!this.state.showTrackNameAvailable}>
-                      Show title
+                      Show title ({this.state.showTrackNameAvailable})
                     </Button>
 
                   </ButtonGroup>

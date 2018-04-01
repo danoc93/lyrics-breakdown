@@ -10,6 +10,8 @@ Pending:
 export const Constants = {
 
   maxTokensMore : 5,
+  maxTokens5050 : 2,
+  maxTokensShowTitle : 2,
   maxTokensPlay : 0,
   pointsPerSuccess : 5,
   numInitialLives : 5,
