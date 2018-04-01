@@ -1,5 +1,6 @@
 import React from 'react';
 import {Environment} from './Environment.js';
+import {Constants} from '../utils/Constants.js';
 const resource = 'leaderboards';
 const BASE_REQ = `${Environment.BACKEND_ROOT}/${resource}`;
 let requestUtils = require('../utils/RequestUtils.js');
@@ -19,14 +20,14 @@ class LeaderboardService{
     This is returning hardcoded data for now.
   */
   static getGlobalLeaderboardSummary(size, country, callbackSuccess, callbackError){
-    console.log('get summary ')
     let url_req = `${BASE_REQ}`;
+    let countries = Constants.countries;
     if(!country){
-      let body = {size: size};
+      let body = {size: size, countries: countries};
       requestUtils.preparePromise(
         'POST', body, url_req, callbackSuccess, callbackError);      
     }else{
-      let body = {size:size, country:country};
+      let body = {size:size, countries: countries, country:country};
       requestUtils.preparePromise(
         'POST', body, url_req, callbackSuccess, callbackError); 
     }

@@ -17,15 +17,16 @@ class Leaderboards extends React.Component {
     this.state = {
       'globalLeaderboard': null,
       'countryLeaderboard': null,
-      'leaderboards_size': 5
+      'globalLeaderboardSize': 5,
+      'countryLeaderboardSize': 3
     }
-    LeaderboardService.buildGlobalLeaderBoard(this.state.leaderboards_size).then((globalLeaderboard)=>{
+    LeaderboardService.buildGlobalLeaderBoard(this.state.globalLeaderboardSize).then((globalLeaderboard)=>{
       this.setState({'globalLeaderboard' : globalLeaderboard});
     }).catch((err)=>{
       console.log(err);
     });
 
-    LeaderboardService.buildCountryLeaderBoard(this.state.leaderboards_size, 'Canada').then((countryLeaderboard)=>{
+    LeaderboardService.buildCountryLeaderBoard(this.state.countryLeaderboardSize, '38').then((countryLeaderboard)=>{
       this.setState({'countryLeaderboard' : countryLeaderboard});
     }).catch((err)=>{
       console.log(err);
