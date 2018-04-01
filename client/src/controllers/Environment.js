@@ -2,8 +2,8 @@
 Controller: Environment.
 */
 
-// ROOT: Use http://localhost:5000 locally.
-
+// Use http://localhost:5000 locally.
+// Use https://lyrics-breakdown-server.herokuapp.com remotely.
 export const Environment = {
-  BACKEND_ROOT : 'http://localhost:5000'
+  BACKEND_ROOT : 'https://lyrics-breakdown-server.herokuapp.com'
 };
