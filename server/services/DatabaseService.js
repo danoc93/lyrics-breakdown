@@ -163,18 +163,6 @@ class DatabaseService {
                         }
                     });
                 });
-
-
-                // return new Promise((resolve, reject)=>{
-                //     num_high_scores > 0 ? userCollection.find({}).sort(sort).limit(num_high_scores).toArray()
-                //     : scoresCollection.find({}).sort(sort).toArray((err, scores)=>{
-                //         if (err) throw err;
-                //         console.log('got scores: ', scores);
-                //         resolve(scores);
-                //     });
-                // });
-                // return num_high_scores > 0 ? scoresCollection.find({}).sort(sort).limit(num_high_scores).toArray()
-                //     : scoresCollection.find({}).sort(sort).toArray();
             }
             catch (err) {
                 console.log(err.stack);
@@ -211,11 +199,6 @@ class DatabaseService {
                         }
                     });
                 });
-
-
-
-                // return num_high_scores > 0 ? scoresCollection.find(query).sort(sort).limit(num_high_scores).toArray()
-                //     : scoresCollection.find(query).sort(sort).toArray();
             }
             catch (err) {
                 console.log(err.stack);
@@ -334,8 +317,3 @@ class DatabaseService {
 }
 
 module.exports = DatabaseService;
-
-
-
-                    // let high_scores = num_high_scores > 0 ? userCollection.find({}).sort(sort).limit(num_high_scores).toArray()
-                    // : scoresCollection.find({}).sort(sort).toArray();
