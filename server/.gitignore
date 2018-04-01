@@ -88,9 +88,4 @@ typings/
 # dotenv environment variables file
 .env
 
-#Folders
-etc
-server
-**Environment.js
-
 # End of https://www.gitignore.io/api/node,macos
