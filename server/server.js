@@ -35,6 +35,8 @@ global.APP.dbService.connectToDatabase();
 // Acceptable routes.
 app.use('/user', require('./routes/UserRouter'));
 app.use('/game', require('./routes/GameRouter'));
+app.use('/leaderboards', require('./routes/LeaderboardsRouter'));
+
 
 // Unavailable route.
 app.use('*', function(req, res){
