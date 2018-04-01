@@ -89,8 +89,8 @@ typings/
 .env
 
 #Folders
-**etc
-**server
+etc
+server
 **Environment.js
 
 # End of https://www.gitignore.io/api/node,macos
