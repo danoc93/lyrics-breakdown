@@ -1,12 +1,14 @@
 import React from 'react';
-import { Jumbotron, Grid, Panel, Col, Row,
-  Button, Pager } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Jumbotron, Grid, Panel, Col, Row, Pager } from 'react-bootstrap';
 
 import UserDescriptor from './UserDescriptor';
 import LeaderboardService from '../controllers/LeaderboardService.js';
 import UserService from '../controllers/UserService.js';
+import MiniGameDescriptor from './MiniGameDescriptor.js';
+
 import t100 from '../images/games/t100.png';
+import canada from '../images/games/canada.png';
+import rock from '../images/games/rock.jpg';
 
 /**
 Component: Home
@@ -60,24 +62,25 @@ class Home extends React.Component {
           <Col sm={8}>
             <Panel className="gameSelectionPanel">
               <Row>
-                <Col sm={6} md={4}>
-                  <div className="thumbnail">
-                    <img src={t100} alt=""/>
-                    <div className="caption">
-                      <h3>Top Charts</h3>
-                      <p> Guess songs from the current top songs around the world!</p>
-                      <div>
-                        <LinkContainer to="/game/0/Top 100">
-                        <div className="centerText">
-                          <Button className="btn btn-success">
-                            Play
-                          </Button>
-                        </div>
-                        </LinkContainer>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
+
+                <MiniGameDescriptor
+                  image={canada}
+                  title={'Canadian Charts'}
+                  description={'Guess lyrics from the trendiest songs in Canada!'}
+                  gameId={0}/>
+
+                <MiniGameDescriptor
+                  image={t100}
+                  title={'Top Charts'}
+                  description={'Guess songs from the current top songs around the world.'}
+                  gameId={1}/>
+
+                <MiniGameDescriptor
+                  image={rock}
+                  title={'Popular Rock'}
+                  description={'Recent rock and roll hits from around the world.'}
+                  gameId={2}/>
+
               </Row>
             </Panel>
             <Pager>
