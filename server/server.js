@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 // Session trackers.
 var jwt = require('jsonwebtoken');
 var environment = require('./services/Environment.js');
-app.set('sessionSecret', environment.secret);
+global.APP.sessionSecret = environment.SESSION_SECRET;
 
 // CORS support.
 var cors = require('cors');
@@ -30,13 +30,14 @@ app.use(cors({origin: '*'}));
 global.APP.dbService = new DatabaseService();
 global.APP.dbService.connectToDatabase();
 
+
 /** SUPPORTED ROUTES **/
 
 // Acceptable routes.
 app.use('/user', require('./routes/UserRouter'));
 app.use('/game', require('./routes/GameRouter'));
 app.use('/leaderboards', require('./routes/LeaderboardsRouter'));
-
+app.use('/score', require('./routes/ScoreRouter'));
 
 // Unavailable route.
 app.use('*', function(req, res){

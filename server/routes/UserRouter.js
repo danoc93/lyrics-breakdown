@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var objUtils = require('../utils/ObjectUtils.js');
 var reqUtils = require('../utils/RequestUtils.js');
+let jwt = require('jsonwebtoken');
 
 /* Handle all the POST requests routed at /user/login. */
 router.post('/login', function(req, res, next) {
@@ -26,12 +27,37 @@ router.post('/login', function(req, res, next) {
 
     (response) => {
       if (response.length > 0)
-        res.send('Succesful login.');
-      else
+      {
+
+        // Send a token!
+        var target = response[0];
+        const payload = {
+          userId: target._id,
+          username: target.username,
+          country_id: target.country_id
+        };
+
+        var token = jwt.sign(payload, global.APP.sessionSecret, {
+          expiresIn: '200h'
+        });
+
+        res.json({
+          success: true,
+          message: 'Succesful autentication.',
+          token: token
+        });
+
+      }
+      else {
         res.status(401).send('Invalid login credentials.');
+      }
+
     },
 
-    reqUtils.genericDatabaseErrorHandler
+    (error) => {
+      console.log(error);
+      res.status(500).send('Could not access database.');
+    }
 
   );
 
@@ -90,22 +116,17 @@ router.post('/create', function(req, res, next) {
               res.send('User created succesfully!');
             else
               res.status(500).send('Could not create user.');
-          },
-          reqUtils.genericDatabaseErrorHandler
+          }
+
         );
 
         if(result == null){
-          res.status(500).send('Unknown error with database.');
-          return;
+          res.status(500).send('Could not access database.');
         }
 
-        // Change this to return a session token to the front end!
-        res.send('User created: '+requestData.username);
+      }
 
-      },
-
-    // Failure.
-    reqUtils.genericDatabaseErrorHandler);
+  );
 
 });
 

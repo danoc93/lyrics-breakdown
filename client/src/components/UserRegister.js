@@ -116,7 +116,7 @@ class UserRegister extends React.Component {
 	}
 
 	registerSuccess(data){
-		this.props.history.push('/');
+		this.props.history.push('/login');
 	}
 
 	errorFound(e){
@@ -131,7 +131,7 @@ class UserRegister extends React.Component {
 	createSelectItems() {
      let items = [ <option key="select" value="">
 		 		Select a country ... </option> ];
-				
+
      for (let i = 0; i < Constants.countries.length; i++) {
 			    let country = Constants.countries[i];
           items.push(

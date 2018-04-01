@@ -26,6 +26,7 @@ class Login extends React.Component {
 
 		this.userService = new UserService();
 		this.prepareBindings();
+
 	}
 
 	prepareBindings(){
@@ -51,7 +52,8 @@ class Login extends React.Component {
 	}
 
 	loginSuccess(data){
-		this.props.history.push('/');
+		UserService.storeUserToken(data.token);
+		window.location = '/';
 	}
 
 	errorFound(e){
