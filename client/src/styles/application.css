@@ -75,3 +75,11 @@
 .popover .arrow{
   visibility:hidden !important;
 }
+
+.songDescription{
+  font-size: 1.5em;
+}
+
+.songHeader{
+  max-height: 2em !important;
+}
