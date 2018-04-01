@@ -11,6 +11,8 @@ Global component to show the navigation bar with the relevant application
 access points.
 */
 
+let objUtils = require('../utils/ObjectUtils.js');
+
 class Header extends React.Component {
 
   constructor(props) {
@@ -72,29 +74,29 @@ class Header extends React.Component {
               'Hi, '+this.state.currUserName : 'My Profile') }
             id="basic-nav-dropdown">
               <LinkContainer to="/login"
-                className={this.state.isUserLoggedIn ? 'hidden' : ''}>
+                className={objUtils.hideIf(this.state.isUserLoggedIn)}>
               <MenuItem eventKey={3.1}>Sign In</MenuItem>
               </LinkContainer>
               <MenuItem divider
-               className={this.state.isUserLoggedIn ? 'hidden' : ''}/>
+               className={objUtils.hideIf(this.state.isUserLoggedIn)}/>
               <LinkContainer to="/register"
-                className={this.state.isUserLoggedIn ? 'hidden' : ''}>
+                className={objUtils.hideIf(this.state.isUserLoggedIn)}>
               <MenuItem eventKey={3.2}>
                 <span role="img" aria-label="pen">✏️</span>
                 Register
               </MenuItem>
               </LinkContainer>
               <LinkContainer to="/dashboard"
-                className={this.state.isUserLoggedIn ? '' : 'hidden'}>
+                className={objUtils.showIf(this.state.isUserLoggedIn)}>
               <MenuItem eventKey={3.3}>
                 <span role="img" aria-label="dashboard">📒</span>
                 My Dashboard
               </MenuItem>
               </LinkContainer>
               <MenuItem divider
-                className={this.state.isUserLoggedIn ? '' : 'hidden'}/>
+                className={objUtils.showIf(this.state.isUserLoggedIn)}/>
               <LinkContainer to="/logout"
-                className={this.state.isUserLoggedIn ? '' : 'hidden'}>
+                className={objUtils.showIf(this.state.isUserLoggedIn)}>
               <MenuItem eventKey={3.4}>
               <span role="img" aria-label="door">🚪</span>
                 Log out
