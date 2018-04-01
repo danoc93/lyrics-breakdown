@@ -5,26 +5,23 @@ import UserService from '../controllers/UserService.js';
 import {Constants} from '../utils/Constants.js';
 
 /**
-Component: UserDescriptor
-Describes the current statistics for a user.
+Component: UserRanking
+Global component to show the statistics about a players ranking.
 */
 
 let objUtils = require('../utils/ObjectUtils.js');
 
-class UserDescriptor extends React.Component {
+class UserRanking extends React.Component {
 
   constructor(props) {
     super(props);
 
     /* Define every property we will need to keep track of a game.*/
-    /* Default values come from the Constants Service. */
 
     this.state = {
-      isCurrentUser : this.props.isCurrentUser,
-      country : '',
-      countryName : '',
-      highScore: 0,
-      cumulativeScore : 0
+      userId : this.props.username,
+      rankingGlobal : 0,
+      rankingLocal : 0
     };
 
   }
@@ -48,25 +45,37 @@ class UserDescriptor extends React.Component {
       });
   }
 
+  retrievalSuccess(response){
+    this.setState(
+      {
+        rankingGlobal : response.body.rankingGlobal,
+        rankingLocal: response.body.rankingLocal
+      });
+  }
+
   render (){
     return (
       <Panel>
         <Panel.Heading>
-          <span role="img" aria-label="stats">📊</span>
-          {(this.state.isCurrentUser ? 'Your' : '')} Statistics
+          Rankings
         </Panel.Heading>
         <Panel.Body>
-        <span><b>Country: </b>{this.state.country} ({this.state.countryName})</span>
 
-        <br/>
-        <span><b>Top Score: </b>{this.state.highScore}</span>
 
+        <span>
+        <span role="img" aria-label="global">🌎</span>
+        <b> Global: </b>{this.state.rankingGlobal}
+        </span>
         <br/>
-        <span><b>Cumulative Score: </b>{this.state.cumulativeScore}</span>
+        <span>
+        <span role="img" aria-label="home">🏠</span>
+        <b> Local: </b>{this.state.rankingLocal}
+        </span>
+
         </Panel.Body>
       </Panel>
     );
   }
 }
 
-export default UserDescriptor;
+export default UserRanking;

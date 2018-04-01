@@ -67,3 +67,11 @@
 .hidden {
   display:none;
  }
+
+.popover {
+  border-radius: 0;
+}
+
+.popover .arrow{
+  visibility:hidden !important;
+}

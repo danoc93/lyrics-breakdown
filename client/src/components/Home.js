@@ -96,7 +96,7 @@ class Home extends React.Component {
 
           <Col sm={4}>
             <div className={objUtils.showIf(this.state.isUserLoggedIn)}>
-            <UserDescriptor/>
+              <UserDescriptor isCurrentUser={true}/>
             </div>
             <Panel>
               <Panel.Heading>

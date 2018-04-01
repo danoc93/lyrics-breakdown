@@ -8,6 +8,7 @@ import Stage from './Stage';
 import Login from './Login';
 import Logout from './Logout';
 import UserRegister from './UserRegister';
+import UserDashboard from './UserDashboard';
 
 /**
 Component: MainRouter
@@ -26,6 +27,7 @@ const MainRouter = () => (
       <Route path='/login' component={Login}/>
       <Route path='/logout' component={Logout}/>
       <Route path='/register' component={UserRegister}/>
+      <Route path='/dashboard' component={UserDashboard}/>
     </Switch>
   </main>
 
