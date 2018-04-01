@@ -8,11 +8,15 @@ import MiniGameDescriptor from './MiniGameDescriptor.js';
 
 import t100 from '../images/games/t100.png';
 import canada from '../images/games/canada.png';
-import rock from '../images/games/rock.jpg';
+import japan from '../images/games/japan.png';
 
 /**
 Component: Home
 Used as a starting point to choose games.
+
+TODO: In the future support dynamic game design from a specialized module
+and query the database to get such games. Right now this is hardcoded.
+
 */
 
 let objUtils = require('../utils/ObjectUtils.js');
@@ -76,9 +80,9 @@ class Home extends React.Component {
                   gameId={1}/>
 
                 <MiniGameDescriptor
-                  image={rock}
-                  title={'Popular Rock'}
-                  description={'Recent rock and roll hits from around the world.'}
+                  image={japan}
+                  title={'Popular J-Pop'}
+                  description={'Recent pop hits from Japanese artists.'}
                   gameId={2}/>
 
               </Row>
