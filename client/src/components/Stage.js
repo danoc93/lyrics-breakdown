@@ -348,7 +348,7 @@ class Stage extends React.Component {
                     <Button bsStyle="info"
                             onClick={this.on5050Clicked}
                             disabled={!this.state.curr5050Available}>
-                      <span role="img" aria-label="weight">⚖️</span>
+                      <span role="img" aria-label="weight">🎚</span>
                       50/50 ({this.state.curr5050Available})
                     </Button>
                     <Button bsStyle="danger"
