@@ -71,7 +71,7 @@ class LeaderboardService{
               </thead>
               <tbody>
                 {
-                  currentLeaders.map(
+                  currentLeaders.response.map(
                   function(item, index){
                     return (<tr key={item.key}>
                               <th scope="row">{ index + 1 }</th>
@@ -95,7 +95,47 @@ class LeaderboardService{
       });
   }
 
-  // static buildCountryLeaderBoard(country){
+  static buildCountryLeaderBoard(size, country){
+
+    return new Promise((resolve, reject)=>{
+      LeaderboardService.getGlobalLeaderboardSummary(size, country, (currentLeaders)=>{
+            let table = <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Points</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  currentLeaders.response.map(
+                  function(item, index){
+                    return (<tr key={item.key}>
+                              <th scope="row">{ index + 1 }</th>
+                              <td>{ item.name }</td>
+                              <td>{ item.p }</td>
+                              <td>{ item.flag }</td>
+                            </tr>)
+                  })
+                }
+              </tbody>
+            </table>;
+           if (currentLeaders){
+            resolve(table);
+           }else{
+            reject("Error");
+           }
+          
+        });
+      }, (err)=>{
+        console.log(err);
+      });
+
+
+
+
 
   //   var currentLeaders = LeaderboardService.getGlobalLeaderboardSummary(country);
 
@@ -125,7 +165,7 @@ class LeaderboardService{
   //       </tbody>
   //     </table>
   //    );
-  // }
+  }
 
 }
 
