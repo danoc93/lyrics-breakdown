@@ -7,7 +7,7 @@ import {Environment} from './Environment.js';
 
 const resource = 'score';
 
-const BASE_REQ = `${Environment.BACKEND_ROOT}/${user}`;
+const BASE_REQ = `${Environment.BACKEND_ROOT}/${resource}`;
 const INSERT_RESOURCE = 'insert';
 const GET_RESOURCE = 'get';
 
