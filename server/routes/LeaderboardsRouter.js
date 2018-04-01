@@ -3,7 +3,7 @@ var router = express.Router();
 var objUtils = require('../utils/ObjectUtils.js');
 var reqUtils = require('../utils/RequestUtils.js');
 
-// Make database return this data 
+// Make database return this data
 var dummyList = [
   {'key' : 0, 'name': 'person1', 'flag' : '🇦🇷', 'p': 1000},
   {'key' : 1, 'name': 'person2', 'flag' : '🇧🇪', 'p': 800},
