@@ -2,6 +2,13 @@ import React from 'react';
 import {Popover, ButtonToolbar, ButtonGroup, Button,
   FormGroup, FormControl, Overlay} from 'react-bootstrap';
 
+let objUtils = require('../utils/ObjectUtils.js');
+
+/**
+Controller: EditSongPopover.
+Allows the user to change or add a song depending on the mode.
+*/
+
 class EditSongPopover extends React.Component {
 
   constructor(props, context) {
@@ -58,7 +65,8 @@ class EditSongPopover extends React.Component {
                 <ButtonToolbar className="text-right">
                   <ButtonGroup bsSize="small">
                     <Button bsStyle="success">Save</Button>
-                    <Button bsStyle="danger">Remove</Button>
+                    <Button className={objUtils.hideIf(this.state.modeCreate)}
+                      bsStyle="danger">Remove</Button>
                   </ButtonGroup>
                 </ButtonToolbar>
                 <br/>
