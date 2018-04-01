@@ -32,8 +32,16 @@ class Home extends React.Component {
     this.state = {
       currUserName : '',
       currUserId : '',
-      isUserLoggedIn : false
+      isUserLoggedIn : false, 
+      leaderboard : null,
+      leaderboards_size: 5
     };
+    LeaderboardService.buildGlobalLeaderBoard(this.state.leaderboards_size).then((globalLeaderboard)=>{
+      console.log('setting state of leaderboard in home: ', globalLeaderboard);
+      this.setState({'leaderboard' : globalLeaderboard});
+    }).catch((err)=>{
+      console.log(err);
+    });
 
   }
 
@@ -42,7 +50,6 @@ class Home extends React.Component {
     this.setState({isUserLoggedIn : UserService.isUserLoggedIn() });
     this.setState({currUserName : UserService.getCurrentUserName() });
     this.setState({currUserId : UserService.getCurrentUserId() });
-
   }
 
   render (){
@@ -103,7 +110,7 @@ class Home extends React.Component {
                 <span role="img" aria-label="world">🌎</span>
                 Global Leaderboard
               </Panel.Heading>
-              {LeaderboardService.buildGlobalLeaderBoard()}
+              {this.state.leaderboard}
             </Panel>
           </Col>
 
