@@ -354,7 +354,7 @@ class Stage extends React.Component {
                     <Button bsStyle="danger"
                             onClick={this.showSongTitleClicked}
                             disabled={!this.state.showTrackNameAvailable}>
-                      <span role="img" aria-label="track">📃</span>
+                      <span role="img" aria-label="track">👁️</span>
                       Show title ({this.state.showTrackNameAvailable})
                     </Button>
 
