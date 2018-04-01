@@ -22,7 +22,6 @@ var jwt = require('jsonwebtoken');
 var environment = require('./services/Environment.js');
 global.APP.sessionSecret = environment.SESSION_SECRET;
 
-console.log
 // CORS support.
 var cors = require('cors');
 app.use(cors({origin: '*'}));
