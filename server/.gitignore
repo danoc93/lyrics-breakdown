@@ -93,7 +93,7 @@ etc
 controllers/Environment.js
 services/Environment.js
 src/controllers/Environment.js
-services/Environment.js
+./services/Environment.js
 server
 
 # End of https://www.gitignore.io/api/node,macos
