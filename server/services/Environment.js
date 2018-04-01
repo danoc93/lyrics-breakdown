@@ -3,11 +3,9 @@
  */
 
 // Use mongodb://localhost:27017/lt-db locally.
-// Use mongodb://ds127899.mlab.com:27899/lt-db remotely.
+// Use mongodb://lt-sandbox:trb-b8o-vYz-nrn@ds127899.mlab.com:27899/lt-db remotely.
 const Environment = {
-    MONGO_URI:'mongodb://ds127899.mlab.com:27899/lt-db',
-    MONGO_USER:'lt-sandbox',
-    MONGO_PASS:'trb-b8o-vYz-nrn',
+    MONGO_URI:'mongodb://lt-sandbox:trb-b8o-vYz-nrn@ds127899.mlab.com:27899/lt-db',
     SESSION_SECRET: 'universityoftears'
 };
 
