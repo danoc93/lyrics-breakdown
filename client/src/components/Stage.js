@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 
 import MusicService from '../controllers/MusicService.js';
+import ScoreService from '../controllers/ScoreService.js';
 import {Constants} from '../utils/Constants.js';
 
 
@@ -72,6 +73,7 @@ class Stage extends React.Component {
     this.prepareBindings();
 
     this.musicService = new MusicService();
+    this.scoreService = new ScoreService();
 
   }
 
@@ -204,7 +206,6 @@ class Stage extends React.Component {
   }
 
   on5050Clicked() {
-
     if (!this.state.curr5050Available) return;
 
     let style = this.state.optStyle;
@@ -252,7 +253,6 @@ class Stage extends React.Component {
   }
 
   dataLoaded(questionData) {
-
     if (questionData === undefined) {
       this.setState({error: true});
       return;
