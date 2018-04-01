@@ -5,7 +5,7 @@ const request = require('request');
 // MongoDB
 const mongod = require('mongodb');
 const mongoClient = mongod.MongoClient;
-
+const ObjectId = require('mongodb').ObjectID;
 const mongoDbUrl = Environment.MONGO_URI;
 
 let db = null;
@@ -27,7 +27,6 @@ class DatabaseService {
                 userCollection = db.collection('users');
                 scoresCollection = db.collection('scores');
                 userRelationCollection = db.collection('relations');
-                userFavouriteArtistCollection = db.collection('favouriteArtists');
                 console.log('Connected to database ', mongoDbUrl);
             });
         else console.log('Already connected to database!')
@@ -232,37 +231,51 @@ class DatabaseService {
     }
 
     // Artist queries
-    addArtist(country_id, artist_id, artist_name) {
+    updateArtist(song_id, creator_id, artist_name, song_name,
+      successCallback, errorCallback) {
         if (this.isConnectedToDatabase())
             try {
-                let ins = {country_id: country_id, artist_id: artist_id, artist_name: artist_name};
+              let data = {
+                creator_id: creator_id,
+                song_name: song_name,
+                artist_name : artist_name
+              };
+                let response = artistCollection.findOneAndUpdate(
+                  {_id: ObjectId(song_id)},
+                  data
+                );
+                return response.then(successCallback).catch(errorCallback);
+            } catch (err) {
+                console.log(err.stack);
+            }
+        return false;
+    }
+
+    // Artist queries
+    addArtist(creator_id, artist_name, song_name,
+      successCallback, errorCallback) {
+        if (this.isConnectedToDatabase())
+            try {
+                let ins = {
+                  creator_id: creator_id,
+                  song_name: song_name,
+                  artist_name : artist_name
+                };
                 let response = artistCollection.insertOne(ins);
-                return response.insertedCount === 1;
+                return response.then(successCallback).catch(errorCallback);
             } catch (err) {
                 console.log(err.stack);
             }
         return false;
     }
 
-    deleteArtist(artist_id) {
+    deleteArtist(song_id,
+      successCallback, errorCallback) {
         if (this.isConnectedToDatabase()) {
             try {
-                let del = {artist_id: artist_id};
-                let response1 = artistCollection.deleteOne(del);
-                let response2 = userFavouriteArtistCollection.deleteMany(del);
-                return response1.deletedCount === 1 && response2.deletedCount > 0;
-            } catch (err) {
-                console.log(err.stack);
-            }
-        }
-        return false;
-    }
-
-    doesArtistExist(artist_id) {
-        if (this.isConnectedToDatabase()) {
-            try {
-                let query = {artist_id: artist_id};
-                return artistCollection.find(query).toArray().length === 1;
+                let del = {_id: ObjectId(song_id)};
+                let response1 = artistCollection.findOneAndDelete(del);
+                return response1.then(successCallback).catch(errorCallback);
             } catch (err) {
                 console.log(err.stack);
             }
@@ -270,11 +283,13 @@ class DatabaseService {
         return false;
     }
 
-    getArtistById(artist_id) {
+    getArtistByCreatorId(creator_id,
+      successCallback, errorCallback) {
         if (this.isConnectedToDatabase()) {
             try {
-                let query = {artist_id: artist_id};
-                return artistCollection.find(query).toArray();
+                let query = {creator_id: creator_id};
+                return artistCollection.find(query).toArray().
+                  then(successCallback).catch(errorCallback);
             }
             catch (err) {
                 console.log(err.stack);
@@ -283,43 +298,6 @@ class DatabaseService {
         return null;
     }
 
-    getArtistsByCountry(country_id) {
-        if (this.isConnectedToDatabase()) {
-            try {
-                let query = {country_id: country_id};
-                return artistCollection.find(query).toArray();
-            } catch (err) {
-                console.log(err.stack);
-            }
-        }
-        return null;
-    }
-
-    addArtistToUserFavourites(artist_id, username) {
-        if (this.isConnectedToDatabase() && this.doesArtistExist(artist_id) && this.doesUsernameExist(username)) {
-            try {
-                let ins = {username: username, artist_id: artist_id};
-                let response = userFavouriteArtistCollection.insertOne(ins);
-                return response.insertedCount === 1;
-            } catch (err) {
-                console.log(err.stack);
-            }
-        }
-        return false;
-    }
-
-    deleteArtistFromUserFavourites(artist_id, username) {
-        if (this.isConnectedToDatabase() && this.doesArtistExist(artist_id) && this.doesUsernameExist(username)) {
-            try {
-                let del = {username: username, artist_id: artist_id};
-                let response = userFavouriteArtistCollection.deleteOne(del);
-                return response.deletedCount === 1;
-            } catch (err) {
-                console.log(err.stack);
-            }
-        }
-        return false;
-    }
 }
 
 module.exports = DatabaseService;

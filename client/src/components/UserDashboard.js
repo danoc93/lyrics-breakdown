@@ -6,6 +6,7 @@ import UserService from '../controllers/UserService.js';
 import UserDescriptor from './UserDescriptor';
 import UserRanking from './UserRanking';
 import EditSongPopover from './EditSongPopover';
+import MusicService from '../controllers/MusicService.js';
 
 /**
 Component: UserDashboard
@@ -30,6 +31,15 @@ class UserDashboard extends React.Component {
       songsAvailable : false
     };
 
+    this.prepareBindings();
+    this.musicService = new MusicService();
+
+  }
+
+  prepareBindings() {
+    this.dataLoaded = this.dataLoaded.bind(this);
+    this.dataAdded = this.dataAdded.bind(this);
+    this.generateList = this.generateList.bind(this);
   }
 
   componentDidMount() {
@@ -38,8 +48,54 @@ class UserDashboard extends React.Component {
     this.setState({currUserName : UserService.getCurrentUserName() });
     this.setState({currUserId : UserService.getCurrentUserId() });
 
+    this.musicService.getUserTracks(
+      UserService.getCurrentUserName(),
+      this.dataLoaded);
+
   }
 
+  /* Happens after rendering. */
+  dataLoaded(response) {
+
+    this.setState({ favouriteSongs : [], songsAvailable : false });
+
+    let data = response.body;
+    if (data) data = data.data;
+    if(objUtils.isEmpty(data)) return;
+
+    this.setState({ favouriteSongs : data, songsAvailable : true });
+
+  }
+
+  dataAdded(response) {
+    window.location = '/dashboard';
+    this.forceUpdate();
+  }
+
+  generateList(item, index) {
+    
+    return (
+      <ListGroupItem key={index}
+      header={
+        <div className="songHeader">
+          <span className="songDescription">
+          <span role="img" aria-label="notes">🎵</span>
+          {item.song_name}</span>
+          <EditSongPopover
+            name={item.song_name}
+            callbackSuccess={this.dataAdded}
+            creator_id={this.state.currUserName}
+            artist={item.artist_name}
+            songId={item._id} />
+        </div>
+      }
+      bsStyle="success">
+      <small>{item.artist_name}</small>
+      </ListGroupItem>
+
+    );
+
+  }
 
   render(){
 
@@ -70,24 +126,18 @@ class UserDashboard extends React.Component {
           <Grid>
 
           <h3>
-          Favourite Songs <span> </span>
+          Favourite Songs<span> </span>
           <span role="img" aria-label="notes">🎶</span>
-          <EditSongPopover modeCreate={true} bsStyle="warning"/>
+          <EditSongPopover
+            modeCreate={true}
+            bsStyle="warning"
+            callbackSuccess={this.dataAdded}
+            creator_id={this.state.currUserName}/>
           </h3>
 
           <ListGroup>
           {
-            this.state.favouriteSongs.map(
-              function(item, index){
-                return (
-                  <ListGroupItem header={item.name} bsStyle="warning">
-                  {item.artist}
-                  <EditSongPopover name={item.name}
-                    artist={item.artist} songId={item.songId} />
-                  </ListGroupItem>
-                )
-
-              })
+            this.state.favouriteSongs.map(this.generateList)
           }
           </ListGroup>
 
