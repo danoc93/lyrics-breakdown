@@ -52,7 +52,7 @@ class MusicService {
 
     let tracks = response.body.message.body.track_list;
 
-    var lyrics_promises = []
+    var lyrics_promises = [];
     MusicService.shuffle(tracks);
     let artists = tracks.map((track) => {
       return track.track.artist_name;

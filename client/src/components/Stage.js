@@ -6,6 +6,7 @@ import {
 
 import MusicService from '../controllers/MusicService.js';
 import ScoreService from '../controllers/ScoreService.js';
+import UserService from '../controllers/UserService';
 import {Constants} from '../utils/Constants.js';
 
 
@@ -130,10 +131,26 @@ class Stage extends React.Component {
   }
 
   gameCompleted() {
+    if (UserService.isUserLoggedIn())
+      this.scoreService.insertScore(UserService.getCurrentUserId(),
+        this.state.currQuestion,
+        (response) => {
+        }, (error) => {
+          console.log('Error in accessing database.');
+          console.log(error);
+        });
     this.onNoMoreLives(true);
   }
 
   gameOver() {
+    if (UserService.isUserLoggedIn())
+      this.scoreService.insertScore(UserService.getCurrentUserId(),
+        this.state.currQuestion - 1,
+        (response) => {
+        }, (error) => {
+          console.log('Error in accessing database.');
+          console.log(error);
+        });
     this.onNoMoreLives(false);
   }
 
@@ -339,7 +356,7 @@ class Stage extends React.Component {
                       Show More ({this.state.currTokensMore})
                     </Button>
                     <Button bsStyle="info"
-                            className = {objUtils.hideIf(true)}
+                            className={objUtils.hideIf(true)}
                             onClick={this.playSnippetClicked}
                             disabled={this.state.currTokensPlay === 0}>
                       <span role="img" aria-label="play">🔉</span>
