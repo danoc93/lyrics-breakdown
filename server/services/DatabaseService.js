@@ -79,7 +79,8 @@ class DatabaseService {
                     country_id: country_id,
                     email_address: email_address,
                     username: username,
-                    password: password
+                    password: password,
+                    totalscore: 0
                 };
                 return userCollection.insertOne(ins).then(createdCallBack).catch(errorCallback);
             } catch (err) {
@@ -153,7 +154,7 @@ class DatabaseService {
         if (this.isConnectedToDatabase()) {
             try {
                 // sort in descending order
-                let sort = {score: -1};
+                let sort = {totalscore: -1};
 
                 return new Promise((resolve, reject)=>{
                     userCollection.find({}).sort(sort).limit(num_high_scores).toArray((err, scores)=>{
@@ -240,6 +241,10 @@ class DatabaseService {
             try {
                 let ins = {username: username, score: score};
                 let response = scoresCollection.insertOne(ins);
+                let response2 = userCollection.findOneAndUpdate(
+                  {username: username},
+                  { $inc: {totalscore: score} }
+                );
                 return response.insertedCount === 1;
             } catch (err) {
                 console.log(err.stack);
