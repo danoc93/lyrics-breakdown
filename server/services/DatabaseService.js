@@ -153,19 +153,17 @@ class DatabaseService {
         if (this.isConnectedToDatabase()) {
             try {
                 // sort in descending order
-                console.log('in get high scores');
                 let sort = {score: -1};
+
                 return new Promise((resolve, reject)=>{
-                    let high_scores = num_high_scores > 0 ? scoresCollection.find({}).sort(sort).limit(num_high_scores).toArray()
-                    : scoresCollection.find({}).sort(sort).toArray();
-                    if(high_scores){
-                        resolve(high_scores);
-                    }else{
-                        reject("Error");
-                    }
+                    userCollection.find({}).sort(sort).limit(num_high_scores).toArray((err, scores)=>{
+                        if(scores){
+                            resolve(scores);
+                        }else{
+                            reject(err);
+                        }
+                    });
                 });
-                // return num_high_scores > 0 ? scoresCollection.find({}).sort(sort).limit(num_high_scores).toArray()
-                //     : scoresCollection.find({}).sort(sort).toArray();
             }
             catch (err) {
                 console.log(err.stack);
@@ -192,8 +190,16 @@ class DatabaseService {
             try {
                 let query = {country_id: country_id};
                 let sort = {score: -1};
-                return num_high_scores > 0 ? scoresCollection.find(query).sort(sort).limit(num_high_scores).toArray()
-                    : scoresCollection.find(query).sort(sort).toArray();
+
+                return new Promise((resolve, reject)=>{
+                    userCollection.find(query).sort(sort).limit(num_high_scores).toArray((err, scores)=>{
+                        if(scores){
+                            resolve(scores);
+                        }else{
+                            reject(err);
+                        }
+                    });
+                });
             }
             catch (err) {
                 console.log(err.stack);
