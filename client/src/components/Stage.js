@@ -127,30 +127,26 @@ class Stage extends React.Component {
 
   /* Report game status. */
   onNoMoreLives(completed) {
+
+    if (UserService.isUserLoggedIn()){
+
+        this.scoreService.insertScore( UserService.getCurrentUserName(),
+          this.state.currentScore,
+        (response) => {},
+        (error) => {
+          console.log('Error in accessing database.');
+          console.log(error);
+        });
+    }
+
     this.setState({gameOver: true, gameCompleted: completed});
   }
 
   gameCompleted() {
-    if (UserService.isUserLoggedIn())
-      this.scoreService.insertScore(UserService.getCurrentUserId(),
-        this.state.currentScore,
-        (response) => {
-        }, (error) => {
-          console.log('Error in accessing database.');
-          console.log(error);
-        });
     this.onNoMoreLives(true);
   }
 
   gameOver() {
-    if (UserService.isUserLoggedIn())
-      this.scoreService.insertScore(UserService.getCurrentUserId(),
-        this.state.currentScore - 5,
-        (response) => {
-        }, (error) => {
-          console.log('Error in accessing database.');
-          console.log(error);
-        });
     this.onNoMoreLives(false);
   }
 
