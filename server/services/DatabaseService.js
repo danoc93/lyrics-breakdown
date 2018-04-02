@@ -80,7 +80,8 @@ class DatabaseService {
                     email_address: email_address,
                     username: username,
                     password: password,
-                    totalscore: 0
+                    totalscore: 0,
+                    maxscore: 0
                 };
                 return userCollection.insertOne(ins).then(createdCallBack).catch(errorCallback);
             } catch (err) {
@@ -243,7 +244,7 @@ class DatabaseService {
                 let response = scoresCollection.insertOne(ins);
                 let response2 = userCollection.findOneAndUpdate(
                   {username: username},
-                  { $inc: {totalscore: score} }
+                  { $inc: {totalscore: score}, $max: {maxscore: score} }
                 );
                 return response.insertedCount === 1;
             } catch (err) {
