@@ -133,7 +133,7 @@ class Stage extends React.Component {
   gameCompleted() {
     if (UserService.isUserLoggedIn())
       this.scoreService.insertScore(UserService.getCurrentUserId(),
-        this.state.currQuestion,
+        this.state.currentScore,
         (response) => {
         }, (error) => {
           console.log('Error in accessing database.');
@@ -145,7 +145,7 @@ class Stage extends React.Component {
   gameOver() {
     if (UserService.isUserLoggedIn())
       this.scoreService.insertScore(UserService.getCurrentUserId(),
-        this.state.currQuestion - 1,
+        this.state.currentScore - 5,
         (response) => {
         }, (error) => {
           console.log('Error in accessing database.');
