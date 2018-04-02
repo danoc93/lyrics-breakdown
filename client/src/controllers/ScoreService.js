@@ -1,8 +1,8 @@
 import {Environment} from './Environment.js';
 
 /**
- Controller: MusicService
- Interface to request game data from the backend.
+ Controller: ScoreService
+ Interface to request score data from the backend.
  */
 
 const resource = 'score';

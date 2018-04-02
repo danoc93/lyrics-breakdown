@@ -7,6 +7,7 @@ const mongod = require('mongodb');
 const mongoClient = mongod.MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const mongoDbUrl = Environment.MONGO_URI;
+const mongoDbUser= Environment.MONGO_USER;
 
 let db = null;
 let artistCollection = null;

@@ -29,6 +29,13 @@ class MusicService {
 
   }
 
+  /******
+
+  The following functions query the augmented API to operate
+  on custom Artists and Songs added by users of the application.
+
+  ******/
+
   getUserTracks(creator_id, callback) {
 
     let url_req =

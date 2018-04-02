@@ -8,9 +8,6 @@ let requestUtils = require('../utils/RequestUtils.js');
 /**
 Controller: LeadeboardService
 Maintains and interfaces with the back-end to load leaderboard data.
-
-Pending:
-- Connect it to the actual back-end, for now it is returning dummy data.
 */
 
 
@@ -25,11 +22,11 @@ class LeaderboardService{
     if(!country){
       let body = {size: size, countries: countries};
       requestUtils.preparePromise(
-        'POST', body, url_req, callbackSuccess, callbackError);      
+        'POST', body, url_req, callbackSuccess, callbackError);
     }else{
       let body = {size:size, countries: countries, country:country};
       requestUtils.preparePromise(
-        'POST', body, url_req, callbackSuccess, callbackError); 
+        'POST', body, url_req, callbackSuccess, callbackError);
     }
   }
 
@@ -65,7 +62,7 @@ class LeaderboardService{
            }else{
             reject("Error");
            }
-          
+
         });
       }, (err)=>{
         console.log(err);
@@ -104,7 +101,7 @@ class LeaderboardService{
            }else{
             reject("Error");
            }
-          
+
         });
       }, (err)=>{
         console.log(err);

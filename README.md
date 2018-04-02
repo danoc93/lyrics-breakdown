@@ -42,6 +42,13 @@ git subtree push --prefix client heroku-front master
 git subtree push --prefix server heroku-server master
 ```
 
+In case it fails to push, try:
+
+```
+git push heroku-front `git subtree split --prefix client master`:master --force
+git push heroku-server `git subtree split --prefix server master`:master --force
+```
+
 Don't forget to also keep the origin updated.
 
 ```
