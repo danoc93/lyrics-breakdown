@@ -19,7 +19,14 @@ class ScoreService {
   insertScore(username, score, callbackSuccess, callbackError) {
     let url_req = `${BASE_REQ}/${INSERT_RESOURCE}`;
     let req_body = {username: username, score: score};
-    requestUtils.preparePromise('POST', req_body, url_req, callbackSuccess, callbackError);
+    requestUtils.preparePromise('POST', req_body, url_req,
+      callbackSuccess, callbackError);
+  }
+
+  getUserScores(username, callbackSuccess, callbackError) {
+    let url_req = `${BASE_REQ}/${GET_RESOURCE}/${username}`;
+    requestUtils.preparePromise('GET', {}, url_req,
+      callbackSuccess, callbackError);
   }
 
 }

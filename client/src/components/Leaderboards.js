@@ -13,20 +13,22 @@ Pending:
 
 class Leaderboards extends React.Component {
   constructor(props){
-    super(props);  
+    super(props);
     this.state = {
       'globalLeaderboard': null,
       'countryLeaderboard': null,
       'globalLeaderboardSize': 5,
       'countryLeaderboardSize': 3
     }
-    LeaderboardService.buildGlobalLeaderBoard(this.state.globalLeaderboardSize).then((globalLeaderboard)=>{
+    LeaderboardService.buildGlobalLeaderBoard(
+      this.state.globalLeaderboardSize).then((globalLeaderboard)=>{
       this.setState({'globalLeaderboard' : globalLeaderboard});
     }).catch((err)=>{
       console.log(err);
     });
 
-    LeaderboardService.buildCountryLeaderBoard(this.state.countryLeaderboardSize, '38').then((countryLeaderboard)=>{
+    LeaderboardService.buildCountryLeaderBoard(
+      this.state.countryLeaderboardSize, '38').then((countryLeaderboard)=>{
       this.setState({'countryLeaderboard' : countryLeaderboard});
     }).catch((err)=>{
       console.log(err);

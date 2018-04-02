@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel } from 'react-bootstrap';
 
+import ScoreService from '../controllers/ScoreService.js';
 import UserService from '../controllers/UserService.js';
 import {Constants} from '../utils/Constants.js';
 
@@ -27,6 +28,14 @@ class UserDescriptor extends React.Component {
       cumulativeScore : 0
     };
 
+    this.scoreService = new ScoreService();
+
+    this.prepareBindings();
+
+  }
+
+  prepareBindings(){
+    this.processScores = this.processScores.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +55,24 @@ class UserDescriptor extends React.Component {
         cumulativeScore : cumulativeScore,
         countryName : name
       });
+
+    this.requestScores();
+  }
+
+  requestScores(){
+    this.scoreService.getUserScores(
+      UserService.getCurrentUserName(), this.processScores);
+  }
+
+  processScores(response){
+    let data = response.data;
+    if(!data) return;
+
+    this.setState({
+      highScore: data[0].maxscore,
+      cumulativeScore: data[0].totalscore
+    });
+    
   }
 
   render (){

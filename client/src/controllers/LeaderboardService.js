@@ -33,7 +33,12 @@ class LeaderboardService{
   static buildGlobalLeaderBoard(size){
 
     return new Promise((resolve, reject)=>{
-      LeaderboardService.getGlobalLeaderboardSummary(size, null, (currentLeaders)=>{
+      LeaderboardService.getGlobalLeaderboardSummary(size, null,
+        (currentLeaders)=>{
+            if(currentLeaders.response.length === 0){
+              currentLeaders.response =
+              [{key : 0, name : '😰 No Players', p : '', flag : ''}];
+            }
             let table = <table className="table table-striped">
               <thead>
                 <tr>
@@ -48,7 +53,9 @@ class LeaderboardService{
                   currentLeaders.response.map(
                   function(item, index){
                     return (<tr key={item.key}>
-                              <th scope="row">{ index + 1 }</th>
+                              <th scope="row">
+                                { item.p !== '' ? index + 1 : '' }
+                              </th>
                               <td>{ item.name }</td>
                               <td>{ item.p }</td>
                               <td>{ item.flag }</td>
@@ -72,7 +79,14 @@ class LeaderboardService{
   static buildCountryLeaderBoard(size, country){
 
     return new Promise((resolve, reject)=>{
-      LeaderboardService.getGlobalLeaderboardSummary(size, country, (currentLeaders)=>{
+      LeaderboardService.getGlobalLeaderboardSummary(
+        size, country, (currentLeaders)=>{
+
+          if(currentLeaders.response.length === 0){
+            currentLeaders.response =
+            [{key : 0, name : '😰 No Players', p : '', flag : ''}];
+          }
+
             let table = <table className="table table-striped">
               <thead>
                 <tr>
@@ -87,7 +101,9 @@ class LeaderboardService{
                   currentLeaders.response.map(
                   function(item, index){
                     return (<tr key={item.key}>
-                              <th scope="row">{ index + 1 }</th>
+                              <th scope="row">
+                                { item.p !== '' ? index + 1 : '' }
+                              </th>
                               <td>{ item.name }</td>
                               <td>{ item.p }</td>
                               <td>{ item.flag }</td>

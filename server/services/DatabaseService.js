@@ -130,10 +130,11 @@ class DatabaseService {
         return false;
     }
 
-    getUser(username) {
+    getUser(username,
+      successCallback, errorCallback) {
         if (this.isConnectedToDatabase()) {
             let query = {username: username};
-            return userCollection.find(query).toArray();
+            return userCollection.find(query).toArray().then(successCallback).catch(errorCallback);
         }
         return null;
     }

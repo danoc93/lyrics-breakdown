@@ -12,8 +12,6 @@ class MiniGameDescriptor extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props);
-
     this.state = {
       title : this.props.title,
       gameId : this.props.gameId,

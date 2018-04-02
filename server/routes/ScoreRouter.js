@@ -32,4 +32,22 @@ router.post('/insert', function (req, res, next) {
   );
 });
 
+router.get('/:get/:user_name', function(req, res, next) {
+  var user_name = req.params.user_name;
+
+  global.APP.dbService.getUser(
+      user_name,
+
+      (response) => {
+        delete response.password;
+        res.json({ data : response });
+      },
+
+      () => {
+        res.status(500).send('Could not gather data.');
+      }
+  );
+
+});
+
 module.exports = router;
