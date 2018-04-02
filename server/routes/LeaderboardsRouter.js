@@ -4,8 +4,9 @@ var objUtils = require('../utils/ObjectUtils.js');
 var reqUtils = require('../utils/RequestUtils.js');
 
 function buildLeaderboardObject(scores, countries){
+
 	return scores.map((user, i)=>{
-		return {'key':i, 'name': user.username, 'flag': countries[Number(user.country_id)].flag, 'p': user.score};
+		return {'key':i, 'name': user.username, 'flag': countries[Number(user.country_id)].flag, 'p': user.totalscore};
 	});
 }
 
@@ -17,8 +18,7 @@ router.post('/', (req, res, next)=>{
 		country = req.body.country;
 		db.getHighScoresByCountry(country, size).then((result)=>{
 			let leaderboardArr = buildLeaderboardObject(result, req.body.countries);
-			res.json({response : leaderboardArr});			
-			// res.json(dummyDatabaseResponse2); //Use this to send the country scores back to the front end
+			res.json({response : leaderboardArr});
 		}).catch((err)=>{
 			console.log(err);
 		});
