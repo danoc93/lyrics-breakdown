@@ -1,14 +1,9 @@
 # lyrics-breakdown
-
-## Track tickets
-https://github.com/csc309-18s/assignment-3-team-one-1/projects/1
-
-This repo had to be created because Heroku couln't operate on the other one due to permissions.
-We will migrate this one once the application is complete.
+A game to guess lyrics using the MusixMatch API.
 
 ## Deployment
 
-We have 2 Heroku servers due to the service only allowing one context per application (unless we pay).
+The product is deployed in two end points:
 
 Front-end of the application:
 https://lyrics-breakdown-front.herokuapp.com/
