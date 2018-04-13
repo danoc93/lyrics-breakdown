@@ -11,45 +11,6 @@ https://lyrics-breakdown-front.herokuapp.com/
 Back-end API access point.
 https://lyrics-breakdown-server.herokuapp.com/
 
-* The first one is hooked to the "client" folder in this repo, the second one is hooked to the "server" folder.
-* To commit changes you can use this repo.
-* To push changes to heroku, you need to setup hooks.
-
-How to setup the hooks for the first time:
-
-```
-git clone https://github.com/danoc93/lyrics-breakdown.git
-cd lyrics-breakdown
-heroku login
-cd client
-heroku git:remote -a lyrics-breakdown-front
-git remote rename heroku heroku-front
-cd ..
-cd server
-heroku git:remote -a lyrics-breakdown-server
-git remote rename heroku heroku-server
-```
-
-From the parent folder, whenever you wanna deploy your changes to either front end or back end, use:
-
-```
-git subtree push --prefix client heroku-front master
-git subtree push --prefix server heroku-server master
-```
-
-In case it fails to push, try:
-
-```
-git push heroku-front `git subtree split --prefix client master`:master --force
-git push heroku-server `git subtree split --prefix server master`:master --force
-```
-
-Don't forget to also keep the origin updated.
-
-```
-git push origin master
-```
-
 ## Local Setup
 
 To start the front-end:
@@ -80,25 +41,7 @@ Added Environment.js in server/services containing the database URI - must chang
 
 Go to server folder, and run `npm install mongodb`.
 
-Basic interaction:
-```javascript
-var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/';
-
-// Use connect method to connect to the Server
-  MongoClient.connect(url, function (err, db) {
-  if (err) {
-    console.log('Unable to connect to the mongoDB server. Error:', err);
-  } else {
-    console.log('Connection established to', url);
-    // do some work here with the database.
-    //Close connection
-    db.close();
-  }
-});
-```
-
-###### Note: npm install only needs to be executed once.
+###### Note: npm install only needs to be executed once per package added.
 
 Last step:
 
