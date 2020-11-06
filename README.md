@@ -1,6 +1,8 @@
 # lyrics-breakdown
 A game to guess lyrics using the MusixMatch API.
 
+Disclaimer: This is an old toy project for university :).
+
 ## Deployment
 
 The product is deployed in two end points:
