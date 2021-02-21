@@ -110,7 +110,7 @@ class MusicService {
     MusicService.shuffle(options);
 
     let trackVanityId = currentTrack.commontrack_vanity_id;
-    let trackName = trackVanityId.substring(trackVanityId.indexOf('/') + 1, trackVanityId.length);
+    let trackName = currentTrack.track_name;
     trackName = trackName.replace(/-/g, ' ');
 
     return {
